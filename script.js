@@ -16,9 +16,9 @@ When user presses submit button
 	Once all questions in the questions array have been completed, display the final score with a 'well done' message and give the user a chance to take the test again. Change the submit button to display 'Start test again' and prompt the user with 'Are you sure you want to start again' before resetting the questions.
 
 
-Create the user score counter
 */
 
+//Initialising our first variables
 
 var score = 0;
 
