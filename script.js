@@ -85,9 +85,9 @@ function checkCorrectAnswer() {
 	var currentQuestion = questions[questionNumber-1];
 	if ( answerArray[currentQuestion.correctAnswer].checked ) {
 		score += 1;
-		alert("Congratulations, that's the right answer! Let's go onto the next question!");
+		setAlert("alert alert-success","Congratulations, that's the right answer! Here's the next question.");
 	} else {
-		alert("Sorry, that's the wrong answer. Let's hope you have better luck next time.");
+		setAlert("alert alert-danger", "Sorry, that's the wrong answer. Let's hope you have better luck next time. Here's the next question.");
 	}
 }
 
@@ -102,6 +102,11 @@ function answered() {
 	return answered;
 }
 
+function setAlert(className,text){
+	feedbackSpot.className = className;
+	feedbackSpot.innerHTML = text;
+}
+
 // Adding event listener for the button
 button.addEventListener('click', function(e) {
 	e.preventDefault();
@@ -111,9 +116,12 @@ button.addEventListener('click', function(e) {
 			buildQuestion(questionNumber);
 	} else if ( answered() ) {
 		checkCorrectAnswer();
-		alert("You finished the game. You answered a total of " + score + " correct questions out of " + questions.length);
+		form.innerHTML = '';
+		questionText.innerHTML = '';
+		button.parentNode.removeChild(button);
+		setAlert("alert alert-info","You finished the game. You answered a total of " + score + " correct questions out of " + questions.length);
 	} else {
-		alert("You must select one of the answers to continue");
+		setAlert("alert alert-warning","You must select one of the answers to continue");
 	}
 });
 
