@@ -5,7 +5,7 @@
 	<title>Quizoid</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<script type='text/javascript' src='script.js'></script>
+
 </head>
 <body>
 
@@ -35,20 +35,20 @@
 				<h3 class="panel-title">Questions</h3>
 			</div>
 			<div class="panel-body">
-				<p>Welcome to the devilishly difficult quizoid. Answer 10 questions and score points for each correct answer. Click the 'Start Now' Button to get started.</p>
-				<form>
-					<input type="radio" name="0" value="This">This<br/>
-					<input type="radio" name="0" value="That">That<br/>
-					<input type="radio" name="0" value="The other">The other<br/>
+				<p id="questionText">Welcome to the devilishly difficult quizoid. Answer 10 questions and score points for each correct answer. Let's get started.</p>
+				<form id="theForm">
 				</form>
 				<br/>
-				<button type="button" class="btn btn-primary" id="quizButton">Start now</button>
+				<div id="feedbackSpot">
+				<button type="button" class="btn btn-primary" id="quizButton">Submit Answer</button>
+				</div>
 			</div>
 		</div>
 	</div><!-- /.container -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type='text/javascript' src='script.js'></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<!-- <script src="js/bootstrap.min.js"></script> -->
 </body>

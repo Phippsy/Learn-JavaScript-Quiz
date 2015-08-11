@@ -1,41 +1,120 @@
-/*
-quiz application
-Radio button choices
-Shows user score on completion
-Add and remove questions dynamically when user clicks the next button
-
-
-Get question text, append to label element or h1 element in page
-Get question options, append to radio buttons in page. Each radioButton should have ID of array index.
-
-When user presses submit button
-	Compare Radiobutton index with correctAnswer index
-		If they match, add 1 to user score and display a 'correct' message, to be shown underneath the submit button.
-		If they don't match, add nothing to user score and display a 'bad luck' message underneath the submit button.
-	After comparing, build the new webpage based on the next set of questions and repeat the steps above.
-	Once all questions in the questions array have been completed, display the final score with a 'well done' message and give the user a chance to take the test again. Change the submit button to display 'Start test again' and prompt the user with 'Are you sure you want to start again' before resetting the questions.
-
-
-*/
-
-//Initialising our first variables
-
-var score = 0;
-
+// Creating the array of questions
 var questions = [
 	{
 		question: "What is the answer?",
 		options: [
 			"This",
 			"That",
-			"The other"
+			"The other",
+			"Yet another"
 			],
 		correctAnswer: 0
+	},
+	{
+	question: "What is the second answer?",
+	options: [
+		"One",
+		"Two",
+		"Three"
+		],
+	correctAnswer: 2
+	},
+	{
+	question: "What is the third answer?",
+	options: [
+		"asdf",
+		"asdfasfd",
+		"assdddd"
+		],
+	correctAnswer: 2
+	},
+	{
+	question: "What is the fourth answer?",
+	options: [
+		"asdf",
+		"asdfasfd",
+		"assdddd"
+		],
+	correctAnswer: 2
+	},
+	{
+	question: "What is the fifth answer?",
+	options: [
+		"asdf",
+		"asdfasfd",
+		"assdddd"
+		],
+	correctAnswer: 2
+	},
+	{
+	question: "What is the sixth answer?",
+	options: [
+		"asdf",
+		"asdfasfd",
+		"assdddd"
+		],
+	correctAnswer: 2
 	}
 ]
 
-// Setting up some variables which will be useful when looping through the questions and checking for the right answer
-var currentQuestion = questions[0];
-var currentRightAnswer = currentQuestion.options[currentQuestion.correctAnswer];
+var score = 0;
+var questionNumber = 1;
+var button = document.getElementById('quizButton');
+var form = document.getElementById('theForm');
+var questionText = document.getElementById('questionText');
+var feedbackSpot = document.getElementById('feedbackSpot');
+var answerArray = document.getElementsByTagName('input');
 
-console.log("This" === currentRightAnswer);
+// Setting up some variables which will be useful when looping through the questions and checking for the right answer
+
+
+// The function to build questions
+function buildQuestion(questionNumber) {
+	var html = '';
+	var currentQuestion = questions[questionNumber-1];
+	for ( var option in currentQuestion.options ) {
+		var opt = currentQuestion.options[option];
+		html += '<input type="radio" name="answers" value="' + opt + '">' + opt + '<br/>'
+	}
+	form.innerHTML = html;
+	questionText.innerHTML = currentQuestion.question;
+}
+
+// Check if the answer supplied is correct
+function checkCorrectAnswer() {
+	var currentQuestion = questions[questionNumber-1];
+	if ( answerArray[currentQuestion.correctAnswer].checked ) {
+		score += 1;
+		alert("Congratulations, that's the right answer! Let's go onto the next question!");
+	} else {
+		alert("Sorry, that's the wrong answer. Let's hope you have better luck next time.");
+	}
+}
+
+// Check if one of the radio buttons has been submitted
+function answered() {
+	var answered = false;
+	for ( var i=0; i<answerArray.length; i++ ) {
+		if ( answerArray[i].checked ) {
+			answered = true;
+		}
+	}
+	return answered;
+}
+
+// Adding event listener for the button
+button.addEventListener('click', function(e) {
+	e.preventDefault();
+	if ( answered() && (questionNumber<questions.length) ) {
+			checkCorrectAnswer();
+			questionNumber += 1;
+			buildQuestion(questionNumber);
+	} else if ( answered() ) {
+		checkCorrectAnswer();
+		alert("You finished the game. You answered a total of " + score + " correct questions out of " + questions.length);
+	} else {
+		alert("You must select one of the answers to continue");
+	}
+});
+
+buildQuestion(1);
